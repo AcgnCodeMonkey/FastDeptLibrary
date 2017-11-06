@@ -27,30 +27,33 @@ public class SystemTool {
     /**
      * 获取当前手机系统版本号
      *
-     * @return  系统版本号
+     * @return 系统版本号
      */
-    public static String getSystemVersion() {
+    public static String getSystemVersion () {
         return android.os.Build.VERSION.RELEASE;
     }
 
     /**
      * 获取手机型号
      *
-     * @return  手机型号
+     * @return 手机型号
      */
-    public static String getSystemModel() {
+    public static String getSystemModel () {
         return android.os.Build.MODEL;
     }
 
     /**
      * 获取手机厂商
      *
-     * @return  手机厂商
+     * @return 手机厂商
      */
-    public static String getDeviceBrand() {
+    public static String getDeviceBrand () {
         return android.os.Build.BRAND;
     }
-    //获取软件版本号
+
+    /**
+     * 获取软件版本号
+     */
     public static String getAPKVersion (Context applicationContext) {
         try {
             PackageInfo info =
@@ -61,13 +64,19 @@ public class SystemTool {
             return "0";
         }
     }
-    //拨打电话
+
+    /**
+     * 拨打电话
+     */
     public static void callPhone (Context context, String num) {
         Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + num));
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
-    // 获取栈顶activity名字
+
+    /**
+     * 获取栈顶activity名字
+     */
     public static String getTaskActivityName (Context applicationContext) {
         ActivityManager manager = (ActivityManager) applicationContext.getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningTaskInfo> runningTaskInfos = manager.getRunningTasks(1);
@@ -78,6 +87,7 @@ public class SystemTool {
             return "";
         }
     }
+
     /**
      * 判断当前应用的是否为前台task
      *
@@ -94,6 +104,7 @@ public class SystemTool {
         }
         return false;
     }
+
     /**
      * 判断当前应用的是否为后台task
      *
@@ -110,6 +121,7 @@ public class SystemTool {
         }
         return false;
     }
+
     /**
      * 判断当前的activity是否为top activity @author dujinyang
      *
@@ -128,6 +140,7 @@ public class SystemTool {
         }
         return false;
     }
+
     public static List<ActivityManager.RunningTaskInfo> getRunningTask (Context context, int num) {
         if (context != null) {
             ActivityManager am = (ActivityManager) context
@@ -137,6 +150,7 @@ public class SystemTool {
         }
         return null;
     }
+
     /**
      * 获取图片uri
      *
@@ -163,12 +177,14 @@ public class SystemTool {
             }
         }
     }
+
     /**
      * 获取当前应用程序的包名
+     *
      * @param context 上下文对象
      * @return 返回包名
      */
-    public static String getAppProcessName(Context context) {
+    public static String getAppProcessName (Context context) {
         //当前应用pid
         int pid = android.os.Process.myPid();
         //任务管理类
@@ -182,6 +198,7 @@ public class SystemTool {
         }
         return "";
     }
+
     /**
      * uri转绝对路径
      *
@@ -206,39 +223,40 @@ public class SystemTool {
         return filePath;
     }
 
-    public static int[] getScreenSize(Activity activity){
+    public static int[] getScreenSize (Activity activity) {
         WindowManager wm = activity.getWindowManager();
         int width = wm.getDefaultDisplay().getWidth();
         int height = wm.getDefaultDisplay().getHeight();
-        return new int[]{width,height};
+        return new int[]{width, height};
     }
 
-        /**
-         * 获取apk程序信息[packageName,versionName...]
-         *
-         * @param context Context
-         * @param path    apk path
-         */
-        public static PackageInfo getApkInfo(Context context, String path) {
-            PackageManager pm = context.getPackageManager();
-            PackageInfo info = pm.getPackageArchiveInfo(path, PackageManager.GET_ACTIVITIES);
-            if (info != null) {
-                //String packageName = info.packageName;
-                //String version = info.versionName;
-                //Log.d(TAG, "packageName:" + packageName + ";version:" + version);
-                //String appName = pm.getApplicationLabel(appInfo).toString();
-                //Drawable icon = pm.getApplicationIcon(appInfo);//得到图标信息
-                return info;
-            }
-            return null;
+    /**
+     * 获取apk程序信息[packageName,versionName...]
+     *
+     * @param context Context
+     * @param path    apk path
+     */
+    public static PackageInfo getApkInfo (Context context, String path) {
+        PackageManager pm = context.getPackageManager();
+        PackageInfo info = pm.getPackageArchiveInfo(path, PackageManager.GET_ACTIVITIES);
+        if (info != null) {
+            //String packageName = info.packageName;
+            //String version = info.versionName;
+            //Log.d(TAG, "packageName:" + packageName + ";version:" + version);
+            //String appName = pm.getApplicationLabel(appInfo).toString();
+            //Drawable icon = pm.getApplicationIcon(appInfo);//得到图标信息
+            return info;
         }
+        return null;
+    }
 
     /**
      * 获取应用sha1
+     *
      * @param context
      * @return
      */
-    public static String getAppSHA1(Context context) {
+    public static String getAppSHA1 (Context context) {
         try {
             PackageInfo info = context.getPackageManager().getPackageInfo(
                     context.getPackageName(), PackageManager.GET_SIGNATURES);
@@ -256,7 +274,7 @@ public class SystemTool {
                 hexString.append(":");
             }
             String result = hexString.toString();
-            return result.substring(0, result.length()-1);
+            return result.substring(0, result.length() - 1);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (PackageManager.NameNotFoundException e) {

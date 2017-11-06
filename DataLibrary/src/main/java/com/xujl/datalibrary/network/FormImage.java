@@ -16,14 +16,23 @@ import java.util.Date;
  * 图片上传实体类
  */
 public class FormImage {
-    // 文件名
+    /**
+     * 文件名
+     */
     private String mFileName;
-    // 文件的 mime，需要根据文档查询
+    /**
+     * 文件的 mime，需要根据文档查询
+     */
     private String mMime;
-    // 需要上传的图片资源
+    /**
+     * 需要上传的图片资源
+     */
     private Bitmap mBitmap;
     private File file;
-    private int maxSize = 500 * 1024;//允许的最大尺寸,byte
+    /**
+     * 允许的最大尺寸,byte
+     */
+    private int maxSize = 500 * 1024;
 
 
     @SuppressWarnings("unused")
@@ -60,7 +69,9 @@ public class FormImage {
         return bos.toByteArray();
     }
 
-    // 因为我知道是 png 文件，所以直接根据文档查的
+    /**
+     * 因为我知道是 png 文件，所以直接根据文档查的
+     */
     public String getMime () {
         return mMime;
     }
@@ -89,12 +100,14 @@ public class FormImage {
         return file;
     }
 
-    //获取压缩率
+    /**
+     * 获取压缩率
+     */
     private float getCompressRate (int byteCount) {
         if (byteCount < maxSize) {
             return 1;
         }
-        return 1- maxSize/byteCount;
+        return 1 - maxSize / byteCount;
     }
 
     public void setFile (File file) {

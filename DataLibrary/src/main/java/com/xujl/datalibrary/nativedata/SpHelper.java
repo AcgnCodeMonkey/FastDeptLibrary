@@ -45,15 +45,15 @@ import java.util.Set;
  * SharedPreferences存储帮助类
  */
 
-public class SharedPreferencesHelper {
+public class SpHelper {
     private SharedPreferences mPreferences;
     private SharedPreferences.Editor mEditor;
 
-    public SharedPreferencesHelper (Context context, String name, int mode) {
+    public SpHelper (Context context, String name, int mode) {
         mPreferences = context.getSharedPreferences(name, mode);
     }
 
-    public SharedPreferencesHelper initEditor () {
+    public SpHelper initEditor () {
         mEditor = mPreferences.edit();
         return this;
     }
@@ -67,28 +67,29 @@ public class SharedPreferencesHelper {
         return mPreferences;
     }
 
-    public SharedPreferencesHelper putString (String key, String value) {
+    public SpHelper putString (String key, String value) {
         mEditor.putString(key, value);
         return this;
     }
 
-    public SharedPreferencesHelper putLong (String key, long value) {
+    public SpHelper putLong (String key, long value) {
         mEditor.putLong(key, value);
         return this;
     }
 
-    public SharedPreferencesHelper putBoolean (String key, boolean value) {
+    public SpHelper putBoolean (String key, boolean value) {
         mEditor.putBoolean(key, value);
         return this;
     }
 
-    public SharedPreferencesHelper putStringSet (String key, Set<String> value) {
+    public SpHelper putStringSet (String key, Set<String> value) {
         mEditor.putStringSet(key, value);
         return this;
     }
 
-    public SharedPreferencesHelper putObject (String key, Object obj) {
-        if (obj instanceof Serializable) {// obj必须实现Serializable接口，否则会出问题
+    public SpHelper putObject (String key, Object obj) {
+        // obj必须实现Serializable接口，否则会出问题
+        if (obj instanceof Serializable) {
             try {
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 ObjectOutputStream oos = new ObjectOutputStream(baos);
@@ -140,7 +141,7 @@ public class SharedPreferencesHelper {
         return obj;
     }
 
-    public <T> SharedPreferencesHelper putList (String key, List<T> list) {
+    public <T> SpHelper putList (String key, List<T> list) {
         final Gson gson = new Gson();
         mEditor.putString(key, gson.toJson(list));
         return this;

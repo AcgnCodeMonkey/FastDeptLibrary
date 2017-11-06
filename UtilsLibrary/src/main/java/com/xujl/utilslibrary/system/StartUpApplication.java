@@ -32,18 +32,21 @@ import android.support.multidex.MultiDexApplication;
  * 启动application
  */
 public class StartUpApplication extends MultiDexApplication {
-    protected static boolean IS_DUBUG;//是否dubug模式
+    /**
+     * 是否debug模式
+     */
+    protected static boolean sDebug;
     @Override
     public void onCreate () {
         super.onCreate();
     }
 
-    public static boolean isDubug () {
-        return IS_DUBUG;
+    public static boolean isDebug () {
+        return sDebug;
     }
 
-    protected void setDubug (boolean dubug) {
-        IS_DUBUG = dubug;
+    public static void setDebug (boolean debug) {
+        sDebug = debug;
     }
 
     @Override

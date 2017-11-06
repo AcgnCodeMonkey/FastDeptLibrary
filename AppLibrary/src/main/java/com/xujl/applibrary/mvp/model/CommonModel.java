@@ -6,13 +6,14 @@ import com.xujl.applibrary.mvp.common.CommonModelHelper;
 import com.xujl.applibrary.mvp.port.ICommonModel;
 import com.xujl.baselibrary.mvp.model.BaseModel;
 import com.xujl.datalibrary.network.InternetUtil;
+import com.xujl.datalibrary.network.ResultEntity;
+import com.xujl.datalibrary.network.port.NetworkPort;
 import com.xujl.rxlibrary.BaseObservable;
 import com.xujl.rxlibrary.BaseObservableEmitter;
 import com.xujl.rxlibrary.BaseObserver;
 import com.xujl.rxlibrary.RxHelper;
 import com.xujl.rxlibrary.RxLife;
 import com.xujl.utilslibrary.data.ParamsMapTool;
-import com.xujl.datalibrary.network.ResultEntity;
 import com.xujl.utilslibrary.port.RequestCallBack;
 
 import java.util.HashMap;
@@ -28,7 +29,8 @@ public abstract class CommonModel extends BaseModel implements ICommonModel {
     public static final int MODE_3 = 3;
     public static final int MODE_4 = 4;
     public static final int MODE_5 = 5;
-    protected InternetUtil mInternetUtil;
+    protected NetworkPort mNetworkPort;
+
 
     @Override
     public CommonModelHelper getModelHelper () {
@@ -51,6 +53,9 @@ public abstract class CommonModel extends BaseModel implements ICommonModel {
 
     @Override
     public void requestForGet (int mode, ParamsMapTool paramsMapTool, RxLife rxLife, BaseObserver<ResultEntity> observer) {
+        if (mNetworkPort == null) {
+            throw new NullPointerException("mNetworkPort未初始化");
+        }
         final String apiName = getApiName(mode);
         final Map<String, Object> params = new HashMap<>();
         addParams(mode, params, paramsMapTool);
@@ -58,7 +63,38 @@ public abstract class CommonModel extends BaseModel implements ICommonModel {
                 .createNormal(new BaseObservable<ResultEntity>() {
                     @Override
                     public void emitAction (final BaseObservableEmitter<ResultEntity> e) throws Exception {
-                        mInternetUtil.requestForGet(params, "", new RequestCallBack() {
+                        mNetworkPort.requestForGet(params, "", new RequestCallBack() {
+                            @Override
+                            public void notice (String json) {
+                                e.onNext(new ResultEntity(json));
+                                e.onComplete();
+                            }
+
+                            @Override
+                            public void error (@JsonICode int error, @Nullable String json) {
+                                e.onNext(new ResultEntity(json, error));
+                                e.onComplete();
+                            }
+                        }, apiName);
+                    }
+                })
+                .newThreadToMain()
+                .run(observer);
+    }
+
+    @Override
+    public void requestForPost (int mode, ParamsMapTool paramsMapTool, RxLife rxLife, BaseObserver<ResultEntity> observer) {
+        if (mNetworkPort == null) {
+            throw new NullPointerException("mNetworkPort未初始化");
+        }
+        final String apiName = getApiName(mode);
+        final Map<String, Object> params = new HashMap<>();
+        addParams(mode, params, paramsMapTool);
+        RxHelper.onCreate(rxLife)
+                .createNormal(new BaseObservable<ResultEntity>() {
+                    @Override
+                    public void emitAction (final BaseObservableEmitter<ResultEntity> e) throws Exception {
+                        mNetworkPort.requestForPost(params, "", new RequestCallBack() {
                             @Override
                             public void notice (String json) {
                                 e.onNext(new ResultEntity(json));
@@ -82,7 +118,7 @@ public abstract class CommonModel extends BaseModel implements ICommonModel {
     }
 
     protected void resetBaseUrl (String baseUrl) {
-        mInternetUtil = new InternetUtil(baseUrl);
+        mNetworkPort = new InternetUtil(baseUrl);
     }
 
     protected String getApiName (int mode) {

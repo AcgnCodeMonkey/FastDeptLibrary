@@ -21,13 +21,12 @@ public class AppApplication extends StartUpApplication {
     @Override
     public void onCreate () {
         super.onCreate();
-
         sApplication = this;
         setModelPackageName("com.xujl.mvpllirary.mvp.model");
         setViewPackageName("com.xujl.mvpllirary.mvp.view");
         DensityUtil.mContext = getApplicationContext();
         InternetState.setContext(getApplicationContext());
-        setDubug(true);
+        setDebug(true);
     }
 
 

@@ -24,6 +24,9 @@ import com.xujl.utilslibrary.data.ParamsMapTool;
 public abstract class CommonActivityPresenter<V extends ICommonView, M extends ICommonModel>
         extends BaseActivityPresenter<V, M> implements ICommonPresenter {
     protected RxLife mRxLife = new RxLife();
+
+
+
     @Override
     public <S extends Activity> void gotoActivity (Class<S> cls, Bundle bundle) {
         getPresenterHelper().gotoActivity(this, cls, bundle);

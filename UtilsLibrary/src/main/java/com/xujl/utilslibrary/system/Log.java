@@ -6,46 +6,46 @@ package com.xujl.utilslibrary.system;
  * log工具类
  */
 public class Log {
-    public static boolean isDubug = true;
+    public static boolean isDebug = true;
 
     public static void i (String tag, String msg) {
-        if (isDubug) {
+        if (isDebug) {
             android.util.Log.i(tag, msg);
         }
     }
 
     public static void d (String tag, String msg) {
-        if (isDubug) {
+        if (isDebug) {
             android.util.Log.d(tag, msg);
         }
     }
 
     public static void w (String tag, String msg) {
-        if (isDubug) {
+        if (isDebug) {
             android.util.Log.w(tag, msg);
         }
     }
 
     public static void w (String tag, String msg, Throwable throwable) {
-        if (isDubug) {
+        if (isDebug) {
             android.util.Log.w(tag, msg, throwable);
         }
     }
 
     public static void v (String tag, String msg) {
-        if (isDubug) {
+        if (isDebug) {
             android.util.Log.v(tag, msg);
         }
     }
 
     public static void e (String tag, String msg) {
-        if (isDubug) {
+        if (isDebug) {
             android.util.Log.e(tag, msg);
         }
     }
 
     public static void e (String tag, String msg, Throwable throwable) {
-        if (isDubug) {
+        if (isDebug) {
             android.util.Log.e(tag, msg, throwable);
         }
     }

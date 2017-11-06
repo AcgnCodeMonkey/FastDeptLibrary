@@ -3,9 +3,11 @@ package com.xujl.datalibrary.network;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import com.xujl.datalibrary.network.port.ApiNamePort;
+import com.xujl.datalibrary.network.port.NetworkPort;
 import com.xujl.datalibrary.network.port.RequestForNetwork;
 import com.xujl.datalibrary.network.port.UploadImageInterface;
-import com.xujl.utilslibrary.data.NetworkUtil;
+import com.xujl.utilslibrary.data.JsonUtil;
 import com.xujl.utilslibrary.port.RequestCallBack;
 import com.xujl.utilslibrary.system.InternetState;
 import com.xujl.utilslibrary.system.Log;
@@ -27,9 +29,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class InternetUtil extends NetworkUtil {
+public class InternetUtil  implements NetworkPort{
     private Retrofit retrofit;
-
     public InternetUtil (String url) {
         final OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(20, TimeUnit.SECONDS)
@@ -46,10 +47,11 @@ public class InternetUtil extends NetworkUtil {
                 .build();
     }
 
-    public InternetUtil () {
-        this(ApiName.BASE_1);
+    public InternetUtil (ApiNamePort apiNamePort) {
+        this(apiNamePort.getBaseUrl());
     }
 
+    @Override
     public void requestForPost (Map<String, Object> params, String tag, final RequestCallBack requestCallBack, String api) {
         // 是否有可用网络
         if (!InternetState.isNetworkConnected()) {
@@ -58,13 +60,13 @@ public class InternetUtil extends NetworkUtil {
         }
         RequestForNetwork rf = retrofit.create(RequestForNetwork.class);
         final RequestBody requestBody = RequestBody.
-                create(MediaType.parse("application/json; charset=utf-8"), getGson().toJson(params));
+                create(MediaType.parse("application/json; charset=utf-8"), JsonUtil.toJson(params));
         Call<JsonObject> call = rf.requestPost(requestBody, api);
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse (Call<JsonObject> call, Response<JsonObject> response) {
                 String resultStr = null;
-                if (StartUpApplication.isDubug()) {
+                if (StartUpApplication.isDebug()) {
                     resultStr = response.body().toString();
                     requestCallBack.notice(resultStr);
                     return;
@@ -89,6 +91,7 @@ public class InternetUtil extends NetworkUtil {
         });
     }
 
+    @Override
     public void requestForGet (Map<String, Object> params, String tag, final RequestCallBack requestCallBack, String apiName) {
         // 是否有可用网络
         if (!InternetState.isNetworkConnected()) {
@@ -103,7 +106,7 @@ public class InternetUtil extends NetworkUtil {
             @Override
             public void onResponse (Call<JsonObject> call, Response<JsonObject> response) {
                 String resultStr = null;
-                if (StartUpApplication.isDubug()) {
+                if (StartUpApplication.isDebug()) {
                     resultStr = response.body().toString();
                     requestCallBack.notice(resultStr);
                     return;
