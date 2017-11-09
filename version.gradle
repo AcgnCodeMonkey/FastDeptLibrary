@@ -1,0 +1,62 @@
+ext {
+    // Sdk and tools
+    minSdkVersion = 16
+    targetSdkVersion = 26
+    compileSdkVersion = 26
+    buildToolsVersion = '26.0.2'
+
+    //自定义库
+    utilsLibraryVersion = '0.0.1-alpha6'
+    rxLibraryVersion = '0.0.1-alpha6'
+    widgetLibraryVersion = '0.0.1-alpha6'
+    dataLibraryVersion = '0.0.1-alpha6'
+    fastDeptLibraryVersion = '0.0.1-alpha5'
+
+    //网络框架
+    retrofit2Version = '2.1.0'
+    // App dependencies
+    supportVersion = '26.+'
+    guavaVersion = '18.0'
+    junitVersion = '4.12'
+    mockitoVersion = '1.10.19'
+    powerMockito = '1.6.2'
+    hamcrestVersion = '1.3'
+    runnerVersion = '0.5'
+    rulesVersion = '0.5'
+    espressoVersion = '2.2.2'
+    constraintLayoutVersion = '1.0.2'
+    gsonVersion = '2.7'
+    eventbusVersion = '3.0.0'
+    multidexVersion = '1.0.2'
+    rxjava2Version = '2.1.3'
+    rxAndroidVersion = '2.0.1'
+    //第三方
+    glideVersion = '4.0.0'
+    mainGroup = [
+            Junit: "junit:junit:$junitVersion",
+            SupportV7 : "com.android.support:appcompat-v7:$supportVersion",
+            SupportV4 : "com.android.support:support-v4:$supportVersion",
+            SupportRecyclerviewV7 : "com.android.support:recyclerview-v7:$supportVersion",
+            CardViewV7 : "com.android.support:cardview-v7:$supportVersion",
+            Design :  "com.android.support:design:$supportVersion",
+            ConstraintLayout : "com.android.support.constraint:constraint-layout:$constraintLayoutVersion",
+            Gson : "com.google.code.gson:gson:$gsonVersion",
+            Eventbus : "org.greenrobot:eventbus:$eventbusVersion",
+            Multidex : "com.android.support:multidex:$multidexVersion",
+            Rxjava2 : "io.reactivex.rxjava2:rxjava:$rxjava2Version",
+            RxAndroid : "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
+
+            UtilsLibrary : "com.xujl.utilslibrary:UtilsLibrary:$utilsLibraryVersion",
+            RxLibrary : "com.xujl.rxlibrary:RxLibrary:$rxLibraryVersion",
+            WidgetLibrary : "com.xujl.widgetlibrary:WidgetLibrary:$widgetLibraryVersion",
+            DataLibrary : "com.xujl.datalibrary:DataLibrary:$dataLibraryVersion",
+            FastDeptLibrary : "com.xujl.applibrary:AppLibrary:$fastDeptLibraryVersion",
+
+            Retrofit2Library : "com.squareup.retrofit2:retrofit:$retrofit2Version",
+            Retrofit2GsonLibrary : "com.squareup.retrofit2:converter-gson:$retrofit2Version",
+            Retrofit2RxLibrary : "com.squareup.retrofit2:adapter-rxjava:$retrofit2Version",
+
+            GlideLibrary : "com.github.bumptech.glide:glide:$glideVersion",
+
+    ]
+}

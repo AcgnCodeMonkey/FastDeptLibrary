@@ -1,2 +1,2 @@
-include ':app', ':DataLibrary', ':WidgetLibrary', ':UtilsLibrary', ':RxLibrary',  ':AppLibrary'
+include ':app', ':AppLibrary'
 
