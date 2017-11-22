@@ -120,6 +120,8 @@ public abstract class CommonActivityPresenter<V extends ICommonView, M extends I
 
     }
 
+    //<editor-fold desc="网络请求">
+
     protected void requestForGet (int mode) {
         requestForGet(mode, null);
     }
@@ -136,6 +138,22 @@ public abstract class CommonActivityPresenter<V extends ICommonView, M extends I
         getPresenterHelper().requestForGet(mode, paramsMapTool, false, mModel, mView, this);
     }
 
+    protected void requestForPost (int mode) {
+        requestForPost(mode, null);
+    }
+
+    protected void requestForPost (int mode, ParamsMapTool paramsMapTool) {
+        getPresenterHelper().requestForPost(mode, paramsMapTool, true, mModel, mView, this);
+    }
+
+    protected void requestForPostNoHint (int mode) {
+        requestForPostNoHint(mode, null);
+    }
+
+    protected void requestForPostNoHint (int mode, ParamsMapTool paramsMapTool) {
+        getPresenterHelper().requestForPost(mode, paramsMapTool, false, mModel, mView, this);
+    }
+    //</editor-fold>
     @Override
     public void requestSuccess (int mode, String json) {
 

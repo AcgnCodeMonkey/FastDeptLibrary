@@ -45,6 +45,31 @@ public class CommonPresenterHelper extends BasePresenterHelper {
             }
         });
     }
+    /**
+     * @param mode
+     * @param paramsMapTool
+     * @param showHint      是否显示加载提示
+     */
+    public void requestForPost (final int mode, ParamsMapTool paramsMapTool, boolean showHint,
+                               ICommonModel model, final ICommonView view, final ICommonPresenter presenter) {
+        if (showHint) {
+            view.showLoading();
+        }
+        //网络请求与生命周期绑定，界面被销毁时，不接受回调结果
+        model.requestForPost(mode, paramsMapTool, presenter.getRxLife(), new BaseObserver<ResultEntity>() {
+            @Override
+            public void onNext (@NonNull ResultEntity resultEntity) {
+                super.onNext(resultEntity);
+                view.dismissLoading();
+                if (resultEntity.getErrorCode() == 0) {
+                    presenter.requestSuccess(mode, resultEntity.getResultJson());
+                    return;
+                }
+                presenter.requestFailed(mode, resultEntity.getErrorCode(),
+                        resultEntity.getErrorString(), resultEntity.getResultJson());
+            }
+        });
+    }
 
     public void exit (BaseActivityPresenter activity) {
         ActivityManger.newInstance().finishActivity(activity);

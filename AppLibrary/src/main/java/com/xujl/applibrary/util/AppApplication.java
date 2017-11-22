@@ -26,7 +26,6 @@ public class AppApplication extends StartUpApplication {
         setViewPackageName("com.xujl.mvpllirary.mvp.view");
         DensityUtil.mContext = getApplicationContext();
         InternetState.setContext(getApplicationContext());
-        setDebug(true);
     }
 
 
