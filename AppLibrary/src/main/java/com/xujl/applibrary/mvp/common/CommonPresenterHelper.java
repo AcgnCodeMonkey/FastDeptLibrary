@@ -25,7 +25,7 @@ public class CommonPresenterHelper extends BasePresenterHelper {
      * @param paramsMapTool
      * @param showHint      是否显示加载提示
      */
-    public void requestForGet (final int mode, ParamsMapTool paramsMapTool, boolean showHint,
+    public void requestForGet (final int mode, ParamsMapTool paramsMapTool, final boolean showHint,
                                ICommonModel model, final ICommonView view, final ICommonPresenter presenter) {
         if (showHint) {
             view.showLoading();
@@ -35,7 +35,9 @@ public class CommonPresenterHelper extends BasePresenterHelper {
             @Override
             public void onNext (@NonNull ResultEntity resultEntity) {
                 super.onNext(resultEntity);
-                view.dismissLoading();
+                if (showHint) {
+                    view.dismissLoading();
+                }
                 if (resultEntity.getErrorCode() == 0) {
                     presenter.requestSuccess(mode, resultEntity.getResultJson());
                     return;
@@ -50,8 +52,8 @@ public class CommonPresenterHelper extends BasePresenterHelper {
      * @param paramsMapTool
      * @param showHint      是否显示加载提示
      */
-    public void requestForPost (final int mode, ParamsMapTool paramsMapTool, boolean showHint,
-                               ICommonModel model, final ICommonView view, final ICommonPresenter presenter) {
+    public void requestForPost (final int mode, ParamsMapTool paramsMapTool, final boolean showHint,
+                                ICommonModel model, final ICommonView view, final ICommonPresenter presenter) {
         if (showHint) {
             view.showLoading();
         }
@@ -60,7 +62,9 @@ public class CommonPresenterHelper extends BasePresenterHelper {
             @Override
             public void onNext (@NonNull ResultEntity resultEntity) {
                 super.onNext(resultEntity);
-                view.dismissLoading();
+                if (showHint) {
+                    view.dismissLoading();
+                }
                 if (resultEntity.getErrorCode() == 0) {
                     presenter.requestSuccess(mode, resultEntity.getResultJson());
                     return;

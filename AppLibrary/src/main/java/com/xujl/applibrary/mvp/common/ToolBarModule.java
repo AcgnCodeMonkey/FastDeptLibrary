@@ -43,15 +43,20 @@ public class ToolBarModule extends BaseToolBarModule {
         getActionBar().setDisplayShowTitleEnabled(false);
         getToolbar().setTitle("");
     }
-    public void showBackBtn(boolean isShow){
+
+    public void showBackBtn (boolean isShow) {
         getActionBar().setDisplayHomeAsUpEnabled(isShow);
+        if (!isShow) {
+            return;
+        }
         getToolbar().setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick (View v) {
                 mPresenter.exit();
             }
         });
     }
+
     @Override
     protected int getToolBarId () {
         return R.id.toolbar;
@@ -70,7 +75,7 @@ public class ToolBarModule extends BaseToolBarModule {
         return mRightIB;
     }
 
-    public void setTitle(String title){
+    public void setTitle (String title) {
         mTitleTV.setText(title);
     }
 

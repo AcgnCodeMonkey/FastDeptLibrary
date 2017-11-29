@@ -6,11 +6,11 @@ ext {
     buildToolsVersion = '26.0.2'
 
     //自定义库
-    utilsLibraryVersion = '0.0.1-alpha7'
+    utilsLibraryVersion = '0.0.1-alpha8'
     rxLibraryVersion = '0.0.1-alpha6'
-    widgetLibraryVersion = '0.0.1-alpha6'
+    widgetLibraryVersion = '0.0.1-alpha8'
     dataLibraryVersion = '0.0.1-alpha7'
-    fastDeptLibraryVersion = '0.0.1-alpha7'
+    fastDeptLibraryVersion = '0.0.1-alpha9'
 
     //网络框架
     retrofit2Version = '2.1.0'
