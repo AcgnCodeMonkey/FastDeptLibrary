@@ -1,7 +1,6 @@
 package com.xujl.applibrary.util;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.widget.Toast;
 
@@ -24,6 +23,10 @@ public class CustomToast {
     public static final int LOADING = 4;
 
     public static void showToast (Context context, String msg, int code) {
+        new CustomToast().toast(context, msg, code);
+    }
+
+    public void toast (Context context, String msg, int code) {
         switch (code) {
             case SUCCESS:
                 Toasty.custom(context, msg, ResUtil.getDrawable(es.dmoral.toasty.R.drawable.ic_check_white_48dp), Color.WHITE,
