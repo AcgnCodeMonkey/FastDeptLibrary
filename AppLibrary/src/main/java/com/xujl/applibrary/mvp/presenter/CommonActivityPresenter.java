@@ -12,6 +12,8 @@ import com.xujl.applibrary.mvp.port.ICommonPresenter;
 import com.xujl.applibrary.mvp.port.ICommonView;
 import com.xujl.applibrary.mvp.view.CommonView;
 import com.xujl.applibrary.util.CustomToast;
+import com.xujl.baselibrary.mvp.port.IBaseModel;
+import com.xujl.baselibrary.mvp.port.IBaseView;
 import com.xujl.baselibrary.mvp.presenter.BaseActivityPresenter;
 import com.xujl.rxlibrary.RxLife;
 import com.xujl.utilslibrary.data.ParamsMapTool;
@@ -22,7 +24,6 @@ import com.xujl.utilslibrary.data.ParamsMapTool;
 
 public abstract class CommonActivityPresenter<V extends ICommonView, M extends ICommonModel>
         extends BaseActivityPresenter<V, M> implements ICommonPresenter {
-    protected RxLife mRxLife = new RxLife();
 
 
 
@@ -86,23 +87,23 @@ public abstract class CommonActivityPresenter<V extends ICommonView, M extends I
 
 
     @Override
-    protected void autoCreateViewModel () {
-        mView = (V) new CommonView() {
+    protected IBaseView autoCreateView () {
+        return new CommonView() {
 
             @Override
             public int getLayoutId () {
-                return 0;
+                return CommonActivityPresenter.this.getLayoutId();
             }
 
-            @Override
-            public int getToolBarId () {
-                return 0;
-            }
-
-        };
-        mModel = (M) new CommonModel() {
         };
     }
+
+    @Override
+    protected IBaseModel autoCreateModel () {
+        return new CommonModel() {
+        };
+    }
+
 
     /**
      * 关闭MVP模式时应复写此方法
@@ -160,12 +161,11 @@ public abstract class CommonActivityPresenter<V extends ICommonView, M extends I
 
     @Override
     public void requestFailed (int mode, int errorCode, String errorMsg, String json) {
-        mView.showToastMsg(exposeContext(), "请求失败", CustomToast.ERROR);
+        getPresenterHelper().requestFailed(mView,this,mModel,mode,errorCode,errorMsg,json);
     }
 
     @Override
     protected void onDestroy () {
-        mRxLife.destroyAll();
         super.onDestroy();
     }
 

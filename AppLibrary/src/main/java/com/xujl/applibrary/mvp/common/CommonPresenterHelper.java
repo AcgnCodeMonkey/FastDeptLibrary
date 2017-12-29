@@ -6,12 +6,14 @@ import android.os.Bundle;
 import com.xujl.applibrary.mvp.port.ICommonModel;
 import com.xujl.applibrary.mvp.port.ICommonPresenter;
 import com.xujl.applibrary.mvp.port.ICommonView;
+import com.xujl.applibrary.util.CustomToast;
 import com.xujl.baselibrary.mvp.common.BasePresenterHelper;
 import com.xujl.baselibrary.mvp.presenter.BaseActivityPresenter;
 import com.xujl.baselibrary.utils.ActivityManger;
+import com.xujl.datalibrary.network.ResultEntity;
 import com.xujl.rxlibrary.BaseObserver;
 import com.xujl.utilslibrary.data.ParamsMapTool;
-import com.xujl.datalibrary.network.ResultEntity;
+import com.xujl.utilslibrary.view.ViewTool;
 
 import io.reactivex.annotations.NonNull;
 
@@ -47,6 +49,7 @@ public class CommonPresenterHelper extends BasePresenterHelper {
             }
         });
     }
+
     /**
      * @param mode
      * @param paramsMapTool
@@ -140,5 +143,10 @@ public class CommonPresenterHelper extends BasePresenterHelper {
 
     public void gotoActivity (BaseActivityPresenter presenter, Intent intent) {
         presenter.startActivity(intent);
+    }
+
+    public void requestFailed (ICommonView view, ICommonPresenter presenter, ICommonModel model,
+                               int mode, int errorCode, String errorMsg, String json) {
+        view.toast(ViewTool.isEmpty(errorMsg) ? "请求失败" : errorMsg, CustomToast.ERROR);
     }
 }

@@ -10,6 +10,7 @@ import com.xujl.baselibrary.mvp.common.BaseViewHelper;
 import com.xujl.baselibrary.mvp.port.IBasePresenter;
 import com.xujl.baselibrary.mvp.port.IBaseView;
 import com.xujl.baselibrary.mvp.view.BaseView;
+import com.xujl.utilslibrary.system.DelegateApplication;
 
 /**
  * Created by xujl on 2017/7/4.
@@ -30,6 +31,16 @@ public abstract class CommonView extends BaseView implements ICommonView {
     @Override
     public void showToastMsg (Context context, String msg, int code, int time) {
         getViewHelper().showToastMsg(context, msg, code, time);
+    }
+
+    @Override
+    public void toast (String msg, int code) {
+        getViewHelper().showToastMsg(DelegateApplication.getContext(), msg, code);
+    }
+
+    @Override
+    public void toast (String msg, int code, int time) {
+        getViewHelper().showToastMsg(DelegateApplication.getContext(), msg, code, time);
     }
 
     @Override

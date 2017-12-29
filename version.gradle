@@ -7,10 +7,10 @@ ext {
 
     //自定义库
     utilsLibraryVersion = '0.0.1-alpha9'
-    rxLibraryVersion = '0.0.1-alpha6'
-    widgetLibraryVersion = '0.0.1-alpha11'
+    rxLibraryVersion = '0.0.1-alpha7'
+    widgetLibraryVersion = '0.0.1-alpha12'
     dataLibraryVersion = '0.0.1-alpha8'
-    fastDeptLibraryVersion = '0.0.1-alpha11'
+    fastDeptLibraryVersion = '0.0.1-alpha16'
 
     //网络框架
     retrofit2Version = '2.1.0'
