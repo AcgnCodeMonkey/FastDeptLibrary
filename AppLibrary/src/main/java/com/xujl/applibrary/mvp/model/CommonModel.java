@@ -13,8 +13,10 @@ import com.xujl.rxlibrary.BaseObservableEmitter;
 import com.xujl.rxlibrary.BaseObserver;
 import com.xujl.rxlibrary.RxHelper;
 import com.xujl.rxlibrary.RxLife;
+import com.xujl.utilslibrary.data.DataException;
 import com.xujl.utilslibrary.data.ParamsMapTool;
 import com.xujl.utilslibrary.port.RequestCallBack;
+import com.xujl.utilslibrary.validator.VaUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -124,4 +126,11 @@ public abstract class CommonModel extends BaseModel implements ICommonModel {
     protected String getApiName (int mode) {
         return null;
     }
+
+    @Override
+    public void validatorData (Object obj) throws DataException {
+        new VaUtils().validatorAll(obj);
+    }
+
+
 }

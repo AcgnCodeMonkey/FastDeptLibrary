@@ -2,6 +2,7 @@ package com.speed.projectx.basecore.mvp.presenter;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.FloatRange;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
@@ -16,9 +17,6 @@ import com.xujl.baselibrary.mvp.port.IBaseModel;
 import com.xujl.baselibrary.mvp.port.IBasePresenter;
 import com.xujl.baselibrary.mvp.port.IBaseView;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -28,6 +26,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public abstract class BaseCoreActivityPresenter<V extends IBaseCoreView, M extends IBaseCoreModel>
         extends CommonActivityPresenter<V, M> implements IBasePresenter {
+
+
 
     @Override
     protected String getModelClassPackageName () {

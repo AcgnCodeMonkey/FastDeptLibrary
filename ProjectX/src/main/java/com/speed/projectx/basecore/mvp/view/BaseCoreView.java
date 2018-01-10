@@ -22,4 +22,5 @@ public abstract class BaseCoreView extends CommonView implements IBaseCoreView {
     public BaseToolBarModule createToolBarModule (IBaseView view, IBasePresenter presenter, int layoutId) {
         return new ToolBarModule(presenter.exposeActivity(), layoutId, getViewHelper().getConfig());
     }
+
 }

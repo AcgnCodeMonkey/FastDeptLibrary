@@ -113,6 +113,11 @@ public abstract class CommonFragmentPresenter<V extends ICommonView, M extends I
 
     @Override
     public void onClick (View v) {
+        final int id = v.getId();
+        onClick(v, id);
+    }
+
+    public void onClick (View v, int id) {
 
     }
 

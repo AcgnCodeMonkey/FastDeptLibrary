@@ -11,7 +11,6 @@ import com.xujl.applibrary.mvp.port.ICommonModel;
 import com.xujl.applibrary.mvp.port.ICommonPresenter;
 import com.xujl.applibrary.mvp.port.ICommonView;
 import com.xujl.applibrary.mvp.view.CommonView;
-import com.xujl.applibrary.util.CustomToast;
 import com.xujl.baselibrary.mvp.port.IBaseModel;
 import com.xujl.baselibrary.mvp.port.IBaseView;
 import com.xujl.baselibrary.mvp.presenter.BaseActivityPresenter;
@@ -117,9 +116,13 @@ public abstract class CommonActivityPresenter<V extends ICommonView, M extends I
 
     @Override
     public void onClick (View v) {
-
+        final int id = v.getId();
+        onClick(v, id);
     }
 
+    public void onClick (View v, int id) {
+
+    }
     //<editor-fold desc="网络请求">
 
     protected void requestForGet (int mode) {
@@ -153,6 +156,7 @@ public abstract class CommonActivityPresenter<V extends ICommonView, M extends I
     protected void requestForPostNoHint (int mode, ParamsMapTool paramsMapTool) {
         getPresenterHelper().requestForPost(mode, paramsMapTool, false, mModel, mView, this);
     }
+
     //</editor-fold>
     @Override
     public void requestSuccess (int mode, String json) {
@@ -161,7 +165,7 @@ public abstract class CommonActivityPresenter<V extends ICommonView, M extends I
 
     @Override
     public void requestFailed (int mode, int errorCode, String errorMsg, String json) {
-        getPresenterHelper().requestFailed(mView,this,mModel,mode,errorCode,errorMsg,json);
+        getPresenterHelper().requestFailed(mView, this, mModel, mode, errorCode, errorMsg, json);
     }
 
     @Override
