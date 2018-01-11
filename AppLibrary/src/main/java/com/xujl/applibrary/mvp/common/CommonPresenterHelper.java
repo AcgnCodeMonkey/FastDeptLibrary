@@ -78,6 +78,51 @@ public class CommonPresenterHelper extends BasePresenterHelper {
         });
     }
 
+    public void request (final int mode, final Setting setting, ICommonModel model,
+                         final ICommonView view, final ICommonPresenter presenter) {
+
+        if (setting.isShowHint()) {
+            view.showLoading();
+        }
+        //网络请求与生命周期绑定，界面被销毁时，不接受回调结果
+        if (setting.getType() == Setting.GET) {
+            model.requestForGet(mode, setting.getParams(),
+                    setting.isBind() ? presenter.getRxLife() : null, new BaseObserver<ResultEntity>() {
+                        @Override
+                        public void onNext (@NonNull ResultEntity resultEntity) {
+                            super.onNext(resultEntity);
+                            if (setting.isShowHint()) {
+                                view.dismissLoading();
+                            }
+                            if (resultEntity.getErrorCode() == 0) {
+                                presenter.requestSuccess(mode, resultEntity.getResultJson());
+                                return;
+                            }
+                            presenter.requestFailed(mode, resultEntity.getErrorCode(),
+                                    resultEntity.getErrorString(), resultEntity.getResultJson());
+                        }
+                    });
+        } else if (setting.getType() == Setting.POST) {
+            model.requestForPost(mode, setting.getParams(),
+                    setting.isBind() ? presenter.getRxLife() : null, new BaseObserver<ResultEntity>() {
+                        @Override
+                        public void onNext (@NonNull ResultEntity resultEntity) {
+                            super.onNext(resultEntity);
+                            if (setting.isShowHint()) {
+                                view.dismissLoading();
+                            }
+                            if (resultEntity.getErrorCode() == 0) {
+                                presenter.requestSuccess(mode, resultEntity.getResultJson());
+                                return;
+                            }
+                            presenter.requestFailed(mode, resultEntity.getErrorCode(),
+                                    resultEntity.getErrorString(), resultEntity.getResultJson());
+                        }
+                    });
+        }
+
+    }
+
     public void exit (BaseActivityPresenter activity) {
         ActivityManger.newInstance().finishActivity(activity);
     }
@@ -149,4 +194,5 @@ public class CommonPresenterHelper extends BasePresenterHelper {
                                int mode, int errorCode, String errorMsg, String json) {
         view.toast(ViewTool.isEmpty(errorMsg) ? "请求失败" : errorMsg, CustomToast.ERROR);
     }
+
 }

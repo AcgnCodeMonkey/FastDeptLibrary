@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.xujl.applibrary.mvp.common.CommonPresenterHelper;
+import com.xujl.applibrary.mvp.common.Setting;
 import com.xujl.applibrary.mvp.model.CommonModel;
 import com.xujl.applibrary.mvp.port.ICommonModel;
 import com.xujl.applibrary.mvp.port.ICommonPresenter;
@@ -154,7 +155,9 @@ public abstract class CommonFragmentPresenter<V extends ICommonView, M extends I
     protected void requestForPostNoHint (int mode, ParamsMapTool paramsMapTool) {
         getPresenterHelper().requestForPost(mode, paramsMapTool, false, mModel, mView, this);
     }
-
+    protected void request(int mode,Setting setting){
+        getPresenterHelper().request(mode,setting,mModel, mView, this);
+    }
     //</editor-fold>
     @Override
     public void requestSuccess (int mode, String json) {

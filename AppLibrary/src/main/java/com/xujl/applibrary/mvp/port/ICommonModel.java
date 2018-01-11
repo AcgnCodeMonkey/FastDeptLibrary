@@ -19,9 +19,10 @@ public interface ICommonModel extends IBaseModel {
     /**
      * 验证数据字段正确性
      * @param obj
+     * @param groups 验证分组，不传时，默认验证所有
      * @throws DataException
      */
-    void validatorData (Object obj) throws DataException;
+    Object validatorData (Object obj,int... groups) throws DataException;
 
 
 }

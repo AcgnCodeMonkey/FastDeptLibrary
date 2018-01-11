@@ -128,8 +128,9 @@ public abstract class CommonModel extends BaseModel implements ICommonModel {
     }
 
     @Override
-    public void validatorData (Object obj) throws DataException {
-        new VaUtils().validatorAll(obj);
+    public Object validatorData (Object obj,int... groups) throws DataException {
+        new VaUtils().validatorAll(obj,groups);
+        return obj;
     }
 
 
