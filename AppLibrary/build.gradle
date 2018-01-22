@@ -46,7 +46,7 @@ dependencies {
     //toast库
     compile 'me.zhanghai.android.materialprogressbar:library:1.4.1'
     //加载圈
-    compile 'com.xujl:BaseLibrary:0.1.3-subAlpha14'
+    compile 'com.xujl:BaseLibrary:0.1.3-subAlpha15'
     compile mainGroup.UtilsLibrary
     compile mainGroup.WidgetLibrary
     compile mainGroup.DataLibrary

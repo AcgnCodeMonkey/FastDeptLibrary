@@ -34,4 +34,7 @@ public class SimpleViewPagerAdapter extends FragmentStatePagerAdapter {
         return mFragmentList.size();
     }
 
+    public List<Fragment> getFragmentList () {
+        return mFragmentList;
+    }
 }

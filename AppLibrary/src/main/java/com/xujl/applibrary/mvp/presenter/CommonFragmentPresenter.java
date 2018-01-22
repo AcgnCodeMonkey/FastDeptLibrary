@@ -155,9 +155,16 @@ public abstract class CommonFragmentPresenter<V extends ICommonView, M extends I
     protected void requestForPostNoHint (int mode, ParamsMapTool paramsMapTool) {
         getPresenterHelper().requestForPost(mode, paramsMapTool, false, mModel, mView, this);
     }
-    protected void request(int mode,Setting setting){
-        getPresenterHelper().request(mode,setting,mModel, mView, this);
+
+    /**
+     * 完全自定义请求
+     * @param mode
+     * @param setting
+     */
+    protected void request (int mode, Setting setting) {
+        getPresenterHelper().request(mode, setting, mModel, mView, this);
     }
+
     //</editor-fold>
     @Override
     public void requestSuccess (int mode, String json) {
@@ -167,6 +174,30 @@ public abstract class CommonFragmentPresenter<V extends ICommonView, M extends I
     @Override
     public void requestFailed (int mode, int errorCode, String errorMsg, String json) {
         getPresenterHelper().requestFailed(mView, this, mModel, mode, errorCode, errorMsg, json);
+    }
+
+    /**
+     * 当前页面完全跳转
+     *
+     * @param fragmentPresenter
+     */
+    public void startFragment (BaseFragmentPresenter fragmentPresenter) {
+        startRecycle(this, fragmentPresenter);
+    }
+
+    /**
+     * 循环判断
+     *
+     * @param nowFragment
+     * @param fragmentPresenter
+     */
+    private void startRecycle (BaseFragmentPresenter nowFragment, BaseFragmentPresenter fragmentPresenter) {
+        BaseFragmentPresenter parentFragment = (BaseFragmentPresenter) nowFragment.getParentFragment();
+        if (parentFragment != null && parentFragment != nowFragment) {
+            startRecycle(parentFragment, fragmentPresenter);
+            return;
+        }
+        nowFragment.start(fragmentPresenter);
     }
 
     @Override

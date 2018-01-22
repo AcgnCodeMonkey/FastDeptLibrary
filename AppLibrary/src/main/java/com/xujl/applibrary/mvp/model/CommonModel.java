@@ -133,5 +133,4 @@ public abstract class CommonModel extends BaseModel implements ICommonModel {
         return obj;
     }
 
-
 }
