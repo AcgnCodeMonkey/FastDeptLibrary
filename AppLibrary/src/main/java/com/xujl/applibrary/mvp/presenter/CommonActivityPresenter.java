@@ -12,6 +12,7 @@ import com.xujl.applibrary.mvp.model.CommonModel;
 import com.xujl.applibrary.mvp.port.ICommonModel;
 import com.xujl.applibrary.mvp.port.ICommonPresenter;
 import com.xujl.applibrary.mvp.port.ICommonView;
+import com.xujl.applibrary.mvp.port.IRequestType;
 import com.xujl.applibrary.mvp.view.CommonView;
 import com.xujl.baselibrary.mvp.port.IBaseModel;
 import com.xujl.baselibrary.mvp.port.IBaseView;
@@ -127,50 +128,41 @@ public abstract class CommonActivityPresenter<V extends ICommonView, M extends I
     }
     //<editor-fold desc="网络请求">
 
-    protected void requestForGet (int mode) {
-        requestForGet(mode, null);
+    protected void requestForGet (IRequestType type) {
+        requestForGet(type, null);
     }
 
-    protected void requestForGet (int mode, ParamsMapTool paramsMapTool) {
-        getPresenterHelper().requestForGet(mode, paramsMapTool, true, mModel, mView, this);
+    protected void requestForGet (IRequestType type, ParamsMapTool paramsMapTool) {
+        getPresenterHelper().requestForGet(type, paramsMapTool, true, mModel, mView, this);
     }
 
-    protected void requestForGetNoHint (int mode) {
-        requestForGetNoHint(mode, null);
+    protected void requestForGetNoHint (IRequestType type) {
+        requestForGetNoHint(type, null);
     }
 
-    protected void requestForGetNoHint (int mode, ParamsMapTool paramsMapTool) {
-        getPresenterHelper().requestForGet(mode, paramsMapTool, false, mModel, mView, this);
+    protected void requestForGetNoHint (IRequestType type, ParamsMapTool paramsMapTool) {
+        getPresenterHelper().requestForGet(type, paramsMapTool, false, mModel, mView, this);
     }
 
-    protected void requestForPost (int mode) {
-        requestForPost(mode, null);
+    protected void requestForPost (IRequestType type) {
+        requestForPost(type, null);
     }
 
-    protected void requestForPost (int mode, ParamsMapTool paramsMapTool) {
-        getPresenterHelper().requestForPost(mode, paramsMapTool, true, mModel, mView, this);
+    protected void requestForPost (IRequestType type, ParamsMapTool paramsMapTool) {
+        getPresenterHelper().requestForPost(type, paramsMapTool, true, mModel, mView, this);
     }
 
-    protected void requestForPostNoHint (int mode) {
-        requestForPostNoHint(mode, null);
+    protected void requestForPostNoHint (IRequestType type) {
+        requestForPostNoHint(type, null);
     }
 
-    protected void requestForPostNoHint (int mode, ParamsMapTool paramsMapTool) {
-        getPresenterHelper().requestForPost(mode, paramsMapTool, false, mModel, mView, this);
+    protected void requestForPostNoHint (IRequestType type, ParamsMapTool paramsMapTool) {
+        getPresenterHelper().requestForPost(type, paramsMapTool, false, mModel, mView, this);
     }
-    protected void request(int mode,Setting setting){
-        getPresenterHelper().request(mode,setting,mModel, mView, this);
+    protected void request(IRequestType type,Setting setting){
+        getPresenterHelper().request(type,setting,mModel, mView, this);
     }
     //</editor-fold>
-    @Override
-    public void requestSuccess (int mode, String json) {
-
-    }
-
-    @Override
-    public void requestFailed (int mode, int errorCode, String errorMsg, String json) {
-        getPresenterHelper().requestFailed(mView, this, mModel, mode, errorCode, errorMsg, json);
-    }
 
     @Override
     protected void onDestroy () {

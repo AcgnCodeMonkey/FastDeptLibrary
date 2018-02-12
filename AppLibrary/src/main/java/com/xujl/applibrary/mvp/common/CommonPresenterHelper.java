@@ -6,7 +6,7 @@ import android.os.Bundle;
 import com.xujl.applibrary.mvp.port.ICommonModel;
 import com.xujl.applibrary.mvp.port.ICommonPresenter;
 import com.xujl.applibrary.mvp.port.ICommonView;
-import com.xujl.applibrary.mvp.port.IRequest;
+import com.xujl.applibrary.mvp.port.IRequestType;
 import com.xujl.applibrary.util.CustomToast;
 import com.xujl.baselibrary.mvp.common.BasePresenterHelper;
 import com.xujl.baselibrary.mvp.presenter.BaseActivityPresenter;
@@ -24,79 +24,42 @@ import io.reactivex.annotations.NonNull;
 
 public class CommonPresenterHelper extends BasePresenterHelper {
     /**
-     * @param mode
+     * @param type
      * @param paramsMapTool
      * @param showHint      是否显示加载提示
      */
-    public void requestForGet (final int mode, ParamsMapTool paramsMapTool, final boolean showHint,
+    public void requestForGet (final IRequestType type, ParamsMapTool paramsMapTool, final boolean showHint,
                                ICommonModel model, final ICommonView view, final ICommonPresenter presenter) {
-        request(mode, Setting.init()
+        request(type, Setting.init()
                         .setParams(paramsMapTool)
                         .setType(Setting.GET)
                         .setShowHint(showHint)
                 , model, view, presenter);
-//        model.requestForGet(mode, paramsMapTool, presenter.getRxLife(), new BaseObserver<ResultEntity>() {
-//            @Override
-//            public void onNext (@NonNull ResultEntity resultEntity) {
-//                super.onNext(resultEntity);
-//                if (showHint) {
-//                    view.dismissLoading();
-//                }
-//                if (resultEntity.getErrorCode() == 0) {
-//                    presenter.requestSuccess(mode, resultEntity.getResultJson());
-//                    return;
-//                }
-//                presenter.requestFailed(mode, resultEntity.getErrorCode(),
-//                        resultEntity.getErrorString(), resultEntity.getResultJson());
-//            }
-//        });
     }
 
     /**
-     * @param mode
+     * @param type
      * @param paramsMapTool
      * @param showHint      是否显示加载提示
      */
-    public void requestForPost (final int mode, ParamsMapTool paramsMapTool, final boolean showHint,
+    public void requestForPost (final IRequestType type, ParamsMapTool paramsMapTool, final boolean showHint,
                                 ICommonModel model, final ICommonView view, final ICommonPresenter presenter) {
-//        if (showHint) {
-//            view.showLoading();
-//        }
-        //网络请求与生命周期绑定，界面被销毁时，不接受回调结果
-//        model.requestForPost(mode, paramsMapTool, presenter.getRxLife(), new BaseObserver<ResultEntity>() {
-//            @Override
-//            public void onNext (@NonNull ResultEntity resultEntity) {
-//                super.onNext(resultEntity);
-//                if (showHint) {
-//                    view.dismissLoading();
-//                }
-//                if (resultEntity.getErrorCode() == 0) {
-//                    presenter.requestSuccess(mode, resultEntity.getResultJson());
-//                    return;
-//                }
-//                presenter.requestFailed(mode, resultEntity.getErrorCode(),
-//                        resultEntity.getErrorString(), resultEntity.getResultJson());
-//            }
-//        });
-
-        request(mode, Setting.init()
+        request(type, Setting.init()
                         .setParams(paramsMapTool)
                         .setType(Setting.POST)
                         .setShowHint(showHint)
                 , model, view, presenter);
     }
 
-    public void request (final int mode, final Setting setting, ICommonModel model,
+    public void request (final IRequestType type, final Setting setting, ICommonModel model,
                          final ICommonView view, final ICommonPresenter presenter) {
 
         if (setting.isShowHint()) {
             view.showLoading();
         }
-        //获取请求回调,如果未设置请求回调，默认回调给presenter
-        final IRequest iRequest = setting.getIRequest() != null ? setting.getIRequest() : presenter;
         //网络请求与生命周期绑定，界面被销毁时，不接受回调结果
         if (setting.getType() == Setting.GET) {
-            model.requestForGet(mode, setting.getParams(),
+            model.requestForGet(type, setting.getParams(),
                     setting.isBind() ? presenter.getRxLife() : null, new BaseObserver<ResultEntity>() {
                         @Override
                         public void onNext (@NonNull ResultEntity resultEntity) {
@@ -105,15 +68,15 @@ public class CommonPresenterHelper extends BasePresenterHelper {
                                 view.dismissLoading();
                             }
                             if (resultEntity.getErrorCode() == 0) {
-                                iRequest.requestSuccess(mode, resultEntity.getResultJson());
+                                type.requestSuccess(presenter, resultEntity.getResultJson());
                                 return;
                             }
-                            iRequest.requestFailed(mode, resultEntity.getErrorCode(),
+                            type.requestFailed(presenter, resultEntity.getErrorCode(),
                                     resultEntity.getErrorString(), resultEntity.getResultJson());
                         }
                     });
         } else if (setting.getType() == Setting.POST) {
-            model.requestForPost(mode, setting.getParams(),
+            model.requestForPost(type, setting.getParams(),
                     setting.isBind() ? presenter.getRxLife() : null, new BaseObserver<ResultEntity>() {
                         @Override
                         public void onNext (@NonNull ResultEntity resultEntity) {
@@ -122,10 +85,10 @@ public class CommonPresenterHelper extends BasePresenterHelper {
                                 view.dismissLoading();
                             }
                             if (resultEntity.getErrorCode() == 0) {
-                                iRequest.requestSuccess(mode, resultEntity.getResultJson());
+                                type.requestSuccess(presenter, resultEntity.getResultJson());
                                 return;
                             }
-                            iRequest.requestFailed(mode, resultEntity.getErrorCode(),
+                            type.requestFailed(presenter, resultEntity.getErrorCode(),
                                     resultEntity.getErrorString(), resultEntity.getResultJson());
                         }
                     });
@@ -200,9 +163,5 @@ public class CommonPresenterHelper extends BasePresenterHelper {
         presenter.startActivity(intent);
     }
 
-    public void requestFailed (ICommonView view, ICommonPresenter presenter, ICommonModel model,
-                               int mode, int errorCode, String errorMsg, String json) {
-        view.toast(ViewTool.isEmpty(errorMsg) ? "请求失败" : errorMsg, CustomToast.ERROR);
-    }
 
 }

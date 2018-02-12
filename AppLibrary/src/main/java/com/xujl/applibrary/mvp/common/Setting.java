@@ -2,9 +2,6 @@ package com.xujl.applibrary.mvp.common;
 
 import android.support.annotation.IntDef;
 
-import com.xujl.applibrary.mvp.port.IRequest;
-import com.xujl.datalibrary.network.ResultEntity;
-import com.xujl.rxlibrary.BaseObserver;
 import com.xujl.utilslibrary.data.ParamsMapTool;
 
 import java.lang.annotation.Retention;
@@ -34,10 +31,6 @@ public class Setting {
      */
     private @Type
     int type;
-    /**
-     * 请求回调
-     */
-    private IRequest mIRequest;
 
     private Setting () {
 
@@ -47,14 +40,6 @@ public class Setting {
         return new Setting();
     }
 
-    public IRequest getIRequest () {
-        return mIRequest;
-    }
-
-    public Setting setIRequest (IRequest IRequest) {
-        mIRequest = IRequest;
-        return this;
-    }
 
     public Setting setParams (ParamsMapTool params) {
         this.params = params;

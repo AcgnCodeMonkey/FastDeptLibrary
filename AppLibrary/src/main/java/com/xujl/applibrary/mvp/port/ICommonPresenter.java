@@ -13,7 +13,7 @@ import com.xujl.rxlibrary.RxLife;
  * Created by xujl on 2017/7/4.
  */
 
-public interface ICommonPresenter extends IBasePresenter,IRequest {
+public interface ICommonPresenter extends IBasePresenter {
 
     RxLife getRxLife ();
     <S extends Activity> void gotoActivity (Class<S> cls, Bundle bundle);

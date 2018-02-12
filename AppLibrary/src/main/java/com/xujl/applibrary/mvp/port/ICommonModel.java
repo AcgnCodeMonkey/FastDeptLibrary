@@ -12,9 +12,9 @@ import com.xujl.utilslibrary.data.ParamsMapTool;
  */
 
 public interface ICommonModel extends IBaseModel {
-    void requestForGet (int mode, ParamsMapTool paramsMapTool, final RxLife rxLife, BaseObserver<ResultEntity> observer);
+    void requestForGet (IRequestType type, ParamsMapTool paramsMapTool, final RxLife rxLife, BaseObserver<ResultEntity> observer);
 
-    void requestForPost (int mode, ParamsMapTool paramsMapTool, final RxLife rxLife, BaseObserver<ResultEntity> observer);
+    void requestForPost (IRequestType type, ParamsMapTool paramsMapTool, final RxLife rxLife, BaseObserver<ResultEntity> observer);
 
     /**
      * 验证数据字段正确性
