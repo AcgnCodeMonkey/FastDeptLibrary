@@ -69,9 +69,7 @@ public abstract class BaseCoreActivityPresenter<V extends IBaseCoreView, M exten
     }
 
 
-    @Override
-    public void requestSuccess (int mode, String json) {
-    }
+
 
     @Override
     protected void attachBaseContext(Context newBase) {

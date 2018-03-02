@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import com.speed.projectx.R;
 import com.speed.projectx.basecore.mvp.common.RefreshRecyclerViewHelper;
 import com.speed.projectx.basecore.mvp.view.port.IBaseRefreshListView;
-import com.xujl.baselibrary.mvp.port.HelperType;
 import com.xujl.baselibrary.mvp.port.IBasePresenter;
 import com.xujl.utilslibrary.system.ResUtil;
 import com.xujl.widgetlibrary.widget.RefreshLayout;
@@ -18,7 +17,7 @@ public abstract class BaseRefreshListView extends BaseCoreView implements IBaseR
     @Override
     public void initView (IBasePresenter presenter) {
         super.initView(presenter);
-        getViewHelper().addHelper(HelperType.TYPE_ONE, new RefreshRecyclerViewHelper(mRootView, refreshLayoutId(), recyclerViewId()));
+        getViewHelper().addHelper(new RefreshRecyclerViewHelper(mRootView, refreshLayoutId(), recyclerViewId()));
         getRefreshRvHelper().initRefreshLayout();
         //判断是否自定义recyclerView配置，没有自定义则用默认配置
         if (!customInitRecyclerView()) {
@@ -40,7 +39,7 @@ public abstract class BaseRefreshListView extends BaseCoreView implements IBaseR
 
     @Override
     public RefreshRecyclerViewHelper getRefreshRvHelper () {
-        return getViewHelper().getHelper(HelperType.TYPE_ONE);
+        return getViewHelper().getHelper(RefreshRecyclerViewHelper.class);
     }
 
     @Override

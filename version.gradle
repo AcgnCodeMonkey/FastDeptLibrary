@@ -10,7 +10,7 @@ ext {
     rxLibraryVersion = '0.0.1-alpha8'
     widgetLibraryVersion = '0.0.1-alpha14'
     dataLibraryVersion = '0.0.1-alpha9'
-    fastDeptLibraryVersion = '0.0.1-alpha28'
+    fastDeptLibraryVersion = '0.0.1-alpha29'
 
     //网络框架
     retrofit2Version = '2.1.0'

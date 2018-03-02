@@ -15,6 +15,8 @@ import java.io.File;
  */
 
 public abstract class BaseCoreModel extends CommonModel implements IBaseCoreModel {
+    public static final int MODE_1 = 1;
+    public static final int MODE_2 = 2;
     @Override
     public void initModel (IBasePresenter presenter) {
         super.initModel(presenter);
